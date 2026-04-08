@@ -172,9 +172,13 @@ kubectl get svc -n grafana
 **🧠 Key Learnings**
 
 Prometheus uses pull-based monitoring
+
 Difference between Metrics Server vs Prometheus
+
 Namespace isolation for monitoring stack
+
 Dynamic provisioning using EBS CSI Driver
+
 Kubernetes internal DNS (svc.cluster.local)
 
 
