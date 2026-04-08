@@ -3,10 +3,12 @@
 This project demonstrates a complete end-to-end monitoring setup on AWS EKS using Prometheus and Grafana deployed via Helm.
 
 **📌 Architecture Overview**
+
 EKS Cluster
-   ├── Prometheus (Metrics Collection)
-   ├── Grafana (Visualization)
-   └── Metrics Server (Resource Metrics)
+
+    Prometheus (Metrics Collection)
+    Grafana (Visualization)
+    Metrics Server (Resource Metrics)
    
 **🛠️ Prerequisites**
 
