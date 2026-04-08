@@ -192,3 +192,166 @@ eksctl delete cluster --name eks2 --region ap-south-1
 **📌 Conclusion**
 
 This setup provides a production-like monitoring stack for Kubernetes workloads using Prometheus and Grafana, enabling real-time observability and performance tracking.
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+**📖 Project Explanation**
+
+This project demonstrates a production-like monitoring setup on AWS EKS using Prometheus and Grafana, deployed via Helm.
+
+The goal of this project is to achieve real-time observability into Kubernetes infrastructure and workloads by collecting, storing, and visualizing metrics.
+
+**🔹 How it works**
+
+An Amazon EKS cluster is provisioned using eksctl with autoscaling worker nodes.
+Kubernetes Metrics Server is installed to provide real-time CPU and memory usage of pods and nodes.
+Prometheus is deployed using Helm to collect and store time-series metrics from the cluster.
+Persistent storage is enabled using AWS EBS (gp2) via the EBS CSI driver to ensure data durability.
+Grafana is deployed and exposed via a LoadBalancer to provide visual dashboards.
+
+Grafana is connected to Prometheus using Kubernetes internal service discovery:
+
+http://prometheus-server.prometheus.svc.cluster.local
+
+Dashboards are used to visualize metrics such as CPU usage, memory usage, and cluster health.
+
+
+**🧠 Key Concepts Explained**
+
+**🔹 Amazon EKS (Elastic Kubernetes Service)**
+
+Managed Kubernetes service by AWS used to run containerized applications without managing control plane infrastructure.
+
+**🔹 kubectl**
+
+Command-line tool used to interact with Kubernetes clusters (create, update, delete resources).
+
+**🔹 eksctl**
+
+CLI tool used to simplify EKS cluster creation and management.
+
+**🔹 Helm**
+
+Package manager for Kubernetes used to deploy applications using reusable charts.
+
+
+**🔹 OIDC (OpenID Connect) in EKS**
+
+OIDC (OpenID Connect) is used in Amazon EKS to enable secure authentication between Kubernetes service accounts and AWS IAM roles.
+
+   **🔸 Why OIDC is required?**
+
+By default, Kubernetes pods do not have permission to access AWS services (like EBS, S3, etc.).
+
+Instead of hardcoding AWS credentials inside pods (which is insecure), we use:
+
+**👉 IAM Roles for Service Accounts (IRSA)**
+
+**🔸 How it works in this project**
+
+An OIDC provider is associated with the EKS cluster
+A Kubernetes service account is created
+An AWS IAM role is attached to that service account
+Pods using that service account automatically get AWS permissions
+
+**🔸 In this setup**
+
+**OIDC is used to enable the EBS CSI Driver to:**
+
+Dynamically create EBS volumes
+Attach volumes to worker nodes
+Manage persistent storage securely
+
+**🔹 Prometheus**
+
+Monitoring tool that:
+
+Collects metrics using a pull-based model
+Stores data as time-series
+Scrapes metrics from Kubernetes services and pods
+
+
+**🔹 Grafana**
+
+Visualization tool used to:
+
+Create dashboards
+Query Prometheus
+Display metrics in graphs and charts
+
+**🔹 Metrics Server**
+
+Collects short-term resource usage (CPU/memory) for Kubernetes components.
+
+Used for:
+
+kubectl top pods
+kubectl top nodes
+
+
+**🔹 Namespace**
+
+Logical separation in Kubernetes.
+
+Used in this project:
+
+prometheus → monitoring backend
+grafana → visualization layer
+
+**🔹 Persistent Volume (PV) & Persistent Volume Claim (PVC)**
+
+Used to provide persistent storage for applications.
+
+PVC → request for storage
+PV → actual storage resource
+
+
+**🔹 EBS CSI Driver**
+
+Enables Kubernetes to dynamically create and attach AWS EBS volumes for persistent storage.
+
+**🔹 StorageClass (gp2)**
+
+Defines the type of storage (AWS EBS in this case) used for dynamic provisioning.
+
+**🔹 Service Discovery (svc.cluster.local)**
+
+Kubernetes internal DNS is used for communication between services.
+
+Example:
+
+prometheus-server.prometheus.svc.cluster.local
+
+**🔹 Port Forwarding**
+
+Used to access internal Kubernetes services locally:
+
+kubectl port-forward deployment/prometheus-server 9090:9090 -n prometheus
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+**🔄 End-to-End Flow**
+
+Kubernetes Cluster
+        ↓
+Prometheus (scrapes metrics)
+        ↓
+Time-Series Database
+        ↓
+Grafana (queries Prometheus)
+        ↓
+Dashboards & Visualization
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+**🎯 Outcome**
+Achieved real-time monitoring of Kubernetes workloads
+Enabled persistent storage for metrics
+Visualized system health using Grafana dashboards
+Improved understanding of production-grade observability
