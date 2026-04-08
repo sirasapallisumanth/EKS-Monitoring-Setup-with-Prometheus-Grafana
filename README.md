@@ -338,12 +338,16 @@ kubectl port-forward deployment/prometheus-server 9090:9090 -n prometheus
 **🔄 End-to-End Flow**
 
 Kubernetes Cluster
+
         ↓
 Prometheus (scrapes metrics)
+
         ↓
 Time-Series Database
+
         ↓
 Grafana (queries Prometheus)
+
         ↓
 Dashboards & Visualization
 
