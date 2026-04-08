@@ -17,29 +17,34 @@ IAM Role with required permissions
 **⚙️ Setup Steps**
 
 **1️⃣ Install AWS CLI**
+
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 sudo apt install unzip -y
 unzip awscliv2.zip
 sudo ./aws/install
 
 **2️⃣ Install kubectl**
+
 curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 chmod +x kubectl
 sudo mv kubectl /usr/local/bin
 kubectl version --short
 
 **3️⃣ Install eksctl**
+
 curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
 sudo mv /tmp/eksctl /usr/local/bin
 eksctl version
 
 **4️⃣ Install Helm**
+
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 chmod 700 get_helm.sh
 ./get_helm.sh
 helm version
 
 **5️⃣ Create EKS Cluster**
+
 eksctl create cluster \
 --name eks2 \
 --version 1.24 \
@@ -51,16 +56,19 @@ eksctl create cluster \
 --nodes-max 3
 
 **6️⃣ Update kubeconfig (if needed)**
+
 aws eks update-kubeconfig --region us-east-1 --name eks2
 
 **7️⃣ Install Metrics Server**
+
 kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 
 kubectl get deployment metrics-server -n kube-system
 
 **📊 Prometheus Setup**
-
 **Add Helm Repo**
+
+
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo update
 Create Namespace
