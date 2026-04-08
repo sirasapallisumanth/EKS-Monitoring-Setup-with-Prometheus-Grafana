@@ -355,7 +355,11 @@ Dashboards & Visualization
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 **🎯 Outcome**
+
 Achieved real-time monitoring of Kubernetes workloads
+
 Enabled persistent storage for metrics
+
 Visualized system health using Grafana dashboards
+
 Improved understanding of production-grade observability
