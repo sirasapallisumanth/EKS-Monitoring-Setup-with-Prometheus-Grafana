@@ -169,6 +169,8 @@ kubectl get svc -n grafana
 
 **👉 Copy EXTERNAL-IP and access Grafana in the browser**
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 **🧠 Key Learnings**
 
 Prometheus uses pull-based monitoring
@@ -180,6 +182,8 @@ Namespace isolation for monitoring stack
 Dynamic provisioning using EBS CSI Driver
 
 Kubernetes internal DNS (svc.cluster.local)
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 **🧹 Cleanup**
