@@ -81,12 +81,16 @@ kubectl get deployment metrics-server -n kube-system
 **📊 Prometheus Setup**
 **Add Helm Repo**
 
-
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+
 helm repo update
-Create Namespace
+
+**Create Namespace**
+
 kubectl create namespace prometheus
+
 Install Prometheus
+
 helm install prometheus prometheus-community/prometheus \
 --namespace prometheus \
 --set alertmanager.persistentVolume.storageClass="gp2" \
